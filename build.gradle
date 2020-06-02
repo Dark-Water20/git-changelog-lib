@@ -26,7 +26,9 @@ dependencies {
  compile 'org.eclipse.jgit:org.eclipse.jgit:3.6.2.201501210735-r'
  compile 'com.github.spullara.mustache.java:compiler:0.8.18'
  compile 'org.gitlab:java-gitlab-api:4.1.0'
-
+ compile 'com.taskadapter:redmine-java-api:4.0.0.rc1'
+ 
+ 
  compileOnly 'com.github.spotbugs:spotbugs-annotations:3.1.12'
 
  testCompile 'junit:junit:4.12'

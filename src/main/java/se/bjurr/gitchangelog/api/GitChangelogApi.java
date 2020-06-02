@@ -45,6 +45,7 @@ import se.bjurr.gitchangelog.internal.model.ParsedIssue;
 import se.bjurr.gitchangelog.internal.model.Transformer;
 import se.bjurr.gitchangelog.internal.settings.Settings;
 import se.bjurr.gitchangelog.internal.settings.SettingsIssue;
+import se.bjurr.gitchangelog.internal.settings.SettingsIssueType;
 
 public class GitChangelogApi {
 
@@ -148,6 +149,22 @@ public class GitChangelogApi {
         .withUser(username, password) //
         .createMediaWikiPage();
   }
+  
+  //TODO jsuarez
+  
+//  /**
+//   * Create RedmineWiki page with changelog.
+//   *
+//   * @throws GitChangelogRepositoryException
+//   * @throws GitChangelogIntegrationException
+//   */
+//  public void toRedmineWiki(
+//      final String username, final String password, final String url, final String title)
+//      throws GitChangelogRepositoryException, GitChangelogIntegrationException {
+//    new MediaWikiClient(url, title, render()) //
+//        .withUser(username, password) //
+//        .createMediaWikiPage();
+//  }
 
   /**
    * Custom issues are added to support any kind of issue management, perhaps something that is
@@ -227,6 +244,35 @@ public class GitChangelogApi {
   }
 
   /** Pattern to recognize GitHub:s. <code>#([0-9]+)</code> */
+  public GitChangelogApi withRdmineIssuePattern(final String gitLabIssuePattern) {
+    this.settings.setIssuePattern(SettingsIssueType.REDMINE,gitLabIssuePattern);
+    return this;
+  }
+
+  /**
+   * In this URL: <code>https://gitlab.com/tomas.bjerre85/violations-test/issues</code> it would be
+   * <code>violations-test</code>.
+   */
+  public GitChangelogApi withRedmineProjectName(final String gitLabProjectName) {
+    this.settings.setProjectName(SettingsIssueType.REDMINE,gitLabProjectName);
+    return this;
+  }
+
+  /** Example: https://gitlab.com/ */
+  public GitChangelogApi withRedmineServer(final String gitLabServer) {
+    this.settings.setServer(SettingsIssueType.REDMINE,gitLabServer);
+    return this;
+  }
+
+  /** You can create it in the project settings page. */
+  public GitChangelogApi withRedmineToken(final String gitLabToken) {
+    this.settings.setGitLabToken(gitLabToken);
+    return this;
+  }
+  
+  
+  
+  /** Pattern to recognize GitHub:s. <code>#([0-9]+)</code> */
   public GitChangelogApi withGitLabIssuePattern(final String gitLabIssuePattern) {
     this.settings.setGitLabIssuePattern(gitLabIssuePattern);
     return this;
@@ -252,6 +298,8 @@ public class GitChangelogApi {
     this.settings.setGitLabToken(gitLabToken);
     return this;
   }
+  
+  
 
   /**
    * A regular expression that is evaluated on the commit message of each commit. If it matches, the

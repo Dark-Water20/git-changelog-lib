@@ -5,8 +5,10 @@ import static com.google.common.collect.Lists.newArrayList;
 import static se.bjurr.gitchangelog.internal.settings.SettingsIssueType.GITHUB;
 import static se.bjurr.gitchangelog.internal.settings.SettingsIssueType.GITLAB;
 import static se.bjurr.gitchangelog.internal.settings.SettingsIssueType.JIRA;
-
+import static se.bjurr.gitchangelog.internal.settings.SettingsIssueType.REDMINE;
 import java.util.List;
+
+import se.bjurr.gitchangelog.api.GitChangelogApiConstants;
 
 public class IssuesUtil {
   private final Settings settings;
@@ -20,9 +22,21 @@ public class IssuesUtil {
     addJira(issues);
     addGitHub(issues);
     addGitLab(issues);
+    addRedmineIssue(issues);
     return issues;
   }
 
+  
+  private void addRedmineIssue(List<SettingsIssue> issues) {
+	    if (!isNullOrEmpty(settings.getIssuePattern(SettingsIssueType.REDMINE).get())) {
+	      if (settings.getApi(SettingsIssueType.REDMINE).isPresent()) {
+	        issues.add(
+	            new SettingsIssue(REDMINE, "Redmine", settings.getIssuePattern(SettingsIssueType.REDMINE).or(GitChangelogApiConstants.DEFAULT_REDMINE_ISSUE_PATTERN), null, null));
+	      }
+	    }
+	  }
+  
+  
   private void addGitHub(List<SettingsIssue> issues) {
     if (!isNullOrEmpty(settings.getGitHubIssuePattern())) {
       if (settings.getGitHubApi().isPresent()) {

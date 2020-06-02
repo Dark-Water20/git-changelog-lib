@@ -15,6 +15,8 @@ public final class GitChangelogApiConstants {
   public static final String DEFAULT_NO_ISSUE_NAME = "No issue";
   public static final String DEFAULT_GITHUB_ISSUE_PATTERN = "#([0-9]+)";
   public static final String DEFAULT_GITLAB_ISSUE_PATTERN = "#([0-9]+)";
+  public static final String DEFAULT_REDMINE_ISSUE_PATTERN = "#([0-9]+)";
+
   public static final String DEFAULT_JIRA_ISSUE_PATTEN = "\\b[a-zA-Z]([a-zA-Z]+)-([0-9]+)\\b";
 
   private GitChangelogApiConstants() {}
